@@ -48,6 +48,7 @@ function buildRequestMessage(data) {
   if (data.persone) lines.push(`👥 Persone: ${data.persone}`);
   if (data.gusto) lines.push(`🍫 Gusto / farcitura: ${data.gusto}`);
   if (data.budget) lines.push(`💰 Budget indicativo: ${data.budget}`);
+  if (data.foto) lines.push(`📎 Foto selezionata: ${data.foto} (da allegare su WhatsApp)`);
   lines.push("");
   lines.push("📝 Dettagli:");
   lines.push(data.dettagli || "(nessun dettaglio)");
@@ -70,6 +71,7 @@ function handleRequestForm(e) {
     gusto: form.gusto.value.trim(),
     budget: form.budget.value.trim(),
     dettagli: form.dettagli.value.trim(),
+    foto: form.foto && form.foto.files && form.foto.files[0] ? form.foto.files[0].name : "",
   };
   if (!data.nome || !data.tipo) {
     alert("Per favore compila almeno il nome e il tipo di richiesta.");
@@ -87,4 +89,30 @@ function handleRequestForm(e) {
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("request-form");
   if (form) form.addEventListener("submit", handleRequestForm);
+
+  // Mostra campo foto solo per cialda in ostia
+  const tipo = document.getElementById("tipo");
+  const fileField = document.getElementById("file-field");
+  if (tipo && fileField) {
+    const toggle = () => {
+      fileField.style.display = (tipo.value === "Cialda in ostia personalizzata") ? "" : "none";
+    };
+    tipo.addEventListener("change", toggle);
+    toggle();
+  }
+});
+
+// --- Cookie banner ---
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("cookieConsent") === "accepted") return;
+  const banner = document.createElement("div");
+  banner.className = "cookie-banner";
+  banner.id = "cookie-banner";
+  banner.innerHTML = `<span>Questo sito utilizza cookie tecnici. Continuando la navigazione accetti l'uso dei cookie. <a href="privacy.html">Privacy</a></span><button type="button" id="cookie-accept">Accetta</button>`;
+  document.body.appendChild(banner);
+  const btn = document.getElementById("cookie-accept");
+  if (btn) btn.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "accepted");
+    banner.remove();
+  });
 });
