@@ -1,0 +1,2 @@
+Inserisci qui il tuo logo con il nome: logo.png (oppure logo.jpg / logo.svg)
+e aggiorna il percorso nei file HTML se necessario.

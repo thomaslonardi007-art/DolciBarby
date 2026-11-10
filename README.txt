@@ -6,8 +6,8 @@ File principali:
 - servizi.html      -> Servizi (torte, dolci, catering, tortellini, pasticci)
 - richieste.html    -> Pagina richieste (form -> WhatsApp)
 - contatti.html     -> Contatti
-- css/style.css     -> Stili
-- js/main.js        -> Script (menu, form, link WhatsApp)
+- style.css         -> Stili
+- main.js           -> Script (menu, form, link WhatsApp)
 
 LOGO
 ----
